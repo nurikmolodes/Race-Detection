@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css"; // Import your custom styles
 import { compressImage } from "./utils/compressImage";
@@ -45,6 +45,12 @@ const App = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (file) {
+      setResponse(null);
+    }
+  }, [file]);
 
   return (
     <div className="app-container">
