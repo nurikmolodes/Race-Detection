@@ -100,18 +100,65 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h2>File Upload</h2>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      <br />
-      <button onClick={handleUpload}>Upload</button>
+    <div className="app-container">
+      <h2>HUMAN RACE DETECTOR</h2>
+      <div className="buttons">
+        <label className="custom-file-input">
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+          Choose Fhoto
+        </label>
+        <button className={`upload-button ${file ? "active" : ""}`} onClick={handleUpload}>
+          Upload
+        </button>
+      </div>
 
-      {loading && <CustomLoader />}
+      {loading && (
+        <div className="loader-container">
+          <CustomLoader type="ThreeDots" color="#fff" height={80} width={80} />
+          <p>Uploading...</p>
+        </div>
+      )}
+
+      {file && (
+        <div className="image-preview-container">
+          <h2>Uploaded Image</h2>
+          <img src={URL.createObjectURL(file)} alt="Uploaded" />
+        </div>
+      )}
 
       {response && (
-        <div>
-          <h3>Response:</h3>
-          <pre>{JSON.stringify(response, null, 2)}</pre>
+        <div className="response-container">
+          <h1>Ethnicity</h1>
+          <div className="response-content">
+            <ul>
+              <li>
+                White: {response?.photos[0].tags[0].attributes?.ethnicity?.white?.confidence}%
+              </li>
+              <li>
+                Black: {response?.photos[0].tags[0].attributes?.ethnicity?.black?.confidence}%
+              </li>
+              <li>
+                Asian: {response?.photos[0].tags[0].attributes?.ethnicity?.asian?.confidence}%
+              </li>
+              <li>
+                Indian: {response?.photos[0].tags[0].attributes?.ethnicity?.indian?.confidence}%
+              </li>
+              <li>
+                Hispanic: {response?.photos[0].tags[0].attributes?.ethnicity?.hispanic?.confidence}%
+              </li>
+            </ul>
+            <h1>Emotions</h1>
+            <ul>
+              <li>Smiling: {response?.photos[0].tags[0].attributes?.smiling?.confidence}%</li>
+              <li>Mood: {response?.photos[0].tags[0].attributes?.mood?.confidence}%</li>
+              <li>Anger: {response?.photos[0].tags[0].attributes?.anger?.confidence}%</li>
+              <li>Disgust: {response?.photos[0].tags[0].attributes?.disgust?.confidence}%</li>
+              <li>Fear: {response?.photos[0].tags[0].attributes?.fear?.confidence}%</li>
+              <li>Hapiness: {response?.photos[0].tags[0].attributes?.hapiness?.confidence}%</li>
+              <li>Sadness: {response?.photos[0].tags[0].attributes?.sadness?.confidence}%</li>
+              <li>Sursprise {response?.photos[0].tags[0].attributes?.surprise?.confidence}%</li>
+            </ul>
+          </div>
         </div>
       )}
     </div>
