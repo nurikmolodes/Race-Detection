@@ -2,15 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./App.css"; // Import your custom styles
 import { compressImage } from "./utils/compressImage";
-
-const CustomLoader = () => (
-  <div className="custom-loader">
-    <div className="loader-circle"></div>
-    <div className="loader-line-mask">
-      <div className="loader-line"></div>
-    </div>
-  </div>
-);
+import Loader from "./components/Loader";
 
 const App = () => {
   const [file, setFile] = useState(null);
@@ -74,7 +66,7 @@ const App = () => {
 
       {loading && (
         <div className="loader-container">
-          <CustomLoader type="ThreeDots" color="#fff" height={80} width={80} />
+          <Loader type="ThreeDots" color="#fff" height={80} width={80} />
         </div>
       )}
 
